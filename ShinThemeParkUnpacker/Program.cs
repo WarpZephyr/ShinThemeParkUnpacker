@@ -86,7 +86,7 @@ namespace ShinThemeParkUnpacker
                     throw new InvalidDataException($"Could not read the requested number of bytes for file {i}: Read: {readCount}; Expected: {length}");
                 }
 
-                File.WriteAllBytes(Path.Combine(unpackFolder, i.ToString()), bytes);
+                File.WriteAllBytes(Path.Combine(unpackFolder, $"{i:D4}"), bytes);
             }
         }
 
@@ -123,6 +123,7 @@ namespace ShinThemeParkUnpacker
                 byte[] bytes = File.ReadAllBytes(file);
                 dataStream.Write(bytes, 0, bytes.Length);
             }
+            headerWriter.Write((int)dataStream.Position);
         }
 
         static void PrintUsage() => Console.WriteLine("Provide an HDT file to the unpacker by drag and dropping or passing its file path as an argument." +
